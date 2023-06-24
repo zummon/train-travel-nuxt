@@ -1,6 +1,6 @@
 <script setup>
 
-const {data} = await useAsyncData('',{ $content }) {
+const {data} = await useAsyncData('',({ $content }) => {
    const page = await $content('about').fetch();
 
    return {
