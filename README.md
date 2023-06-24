@@ -1,6 +1,5 @@
 Not yet completed
 just include `modules: ['@nuxt/content']` in `nuxt.config.ts` and it gets the error
-[Made by zummon](https://zummon.page/)
 
 ## Dev tools
 
