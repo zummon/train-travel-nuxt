@@ -1,13 +1,7 @@
 <script setup>
-
-const {data} = await useAsyncData('',({ $content }) => {
-   const page = await $content('about').fetch();
-
-   return {
-     ...page,
-     page,
-   };
- }
+const { data } = await useAsyncData("about", () => {
+  return queryContent("/about").findOne();
+});
 </script>
 <template>
   <div class="max-w-prose mx-auto">
@@ -16,8 +10,8 @@ const {data} = await useAsyncData('',({ $content }) => {
       :excerpt="excerpt.children[0].children[0].value"
       :thumbnail="thumbnail"
     /> -->
-    <h1 class="text-center">{{ title }}</h1>
-    <p class="text-center">{{ excerpt }}</p>
+    <h1 class="text-center">{{ data.title }}</h1>
+    <p class="text-center">{{ data.excerpt }}</p>
     <p>
       <img
         class="w-full object-cover object-top h-96"
@@ -25,6 +19,6 @@ const {data} = await useAsyncData('',({ $content }) => {
         :alt="thumbnail.alt"
       />
     </p>
-    <NuxtContent :document="page" />
+    <ContentRenderer :value="data" />
   </div>
 </template>
