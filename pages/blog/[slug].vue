@@ -1,51 +1,42 @@
-<script>
-export default {
-  async asyncData({ params, $content }) {
-    const blogs = await $content(`blogs`).fetch();
-    const page = blogs.find(({ slug }) => {
-      return slug === params.slug;
-    });
-
-    return {
-      ...page,
-      page,
-    };
-  },
-};
+<script setup>
+const route = useRoute();
+const { data } = await useAsyncData(`blog-${route.params.slug}`, () =>
+  queryContent(`/blog/${route.params.slug}`).findOne()
+);
 </script>
 <template>
   <div>
     <Seo
-      :title="title"
-      :excerpt="excerpt.children[0].children[0].value"
-      :thumbnail="thumbnail"
-      :date="date"
+      :title="data.title"
+      :excerpt="data.excerpt.children[0].children[0].value"
+      :thumbnail="data.thumbnail"
+      :date="data.date"
     />
     <div class="max-w-prose mx-auto">
       <p>
         <img
           class="w-full object-cover h-96"
-          :src="thumbnail.src"
-          :alt="thumbnail.alt"
+          :src="data.thumbnail.src"
+          :alt="data.thumbnail.alt"
         />
       </p>
-      <h1>{{ title }}</h1>
+      <h1>{{ data.title }}</h1>
       <p>
         <b>Date</b>
         {{
-          new Date(date).toLocaleDateString('en', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+          new Date(data.date).toLocaleDateString("en", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           })
         }}
-        <b>Category</b> <a href="#">{{ category }}</a>
+        <b>Category</b> <a href="#">{{ data.category }}</a>
       </p>
-      <NuxtContent :document="{ body: excerpt }" />
+      <p>{{ data.excerpt }}</p>
       <hr />
     </div>
     <div class="max-w-prose mx-auto">
-      <NuxtContent :document="page" />
+      <ContentRenderer :value="data" />
     </div>
   </div>
 </template>

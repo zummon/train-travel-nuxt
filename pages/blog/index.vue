@@ -1,7 +1,8 @@
 <script setup>
-const { data } = await useAsyncData("blog", () => queryContent("/blog").find());
-
-const categories = [...new Set(data.map(({ category }) => category))];
+const { data: blogs } = await useAsyncData("blog", () =>
+  queryContent("/blog").find()
+);
+const categories = [...new Set(blogs.map(({ category }) => category))];
 const title = "Blog";
 </script>
 <template>
@@ -22,7 +23,7 @@ const title = "Blog";
       class="sm:flex items-center"
       v-for="(
         { category, date, excerpt, thumbnail, title, slug }, index
-      ) in data"
+      ) in blogs"
       :key="index"
     >
       <div class="flex-1">
