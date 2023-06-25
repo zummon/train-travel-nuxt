@@ -1,13 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const route = useRoute();
 const isDark = ref(false);
-useHead({
-  htmlAttrs: { class: isDark.value ? "dark" : "" },
-});
+// useHead({
+//   htmlAttrs: { class: isDark.value ? "dark" : "" },
+// });
 const setDark = () => {
+  document.documentElement.classList.toggle("dark", isDark);
   isDark.value = !isDark.value;
 };
+onMounted(() => {
+  setDark();
+});
 </script>
 
 <template>
