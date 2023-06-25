@@ -3,15 +3,15 @@ const route = useRoute();
 const { data } = await useAsyncData(`blog-${route.params.slug}`, () =>
   queryContent(`/blog/${route.params.slug}`).findOne()
 );
+useSeoMeta({
+  title: data.title,
+  description: data.excerpt,
+  // thumbnail="data.thumbnail.src"
+  // date="data.date"
+});
 </script>
 <template>
   <div>
-    <Seo
-      :title="data.title"
-      :excerpt="data.excerpt.children[0].children[0].value"
-      :thumbnail="data.thumbnail"
-      :date="data.date"
-    />
     <div class="max-w-prose mx-auto">
       <p>
         <img
@@ -24,7 +24,7 @@ const { data } = await useAsyncData(`blog-${route.params.slug}`, () =>
       <p>
         <b>Date</b>
         {{
-          new Date(data.date).toLocaleDateString("en", {
+          new Date(data.date).toLocaleDateString(undefined, {
             year: "numeric",
             month: "long",
             day: "numeric",

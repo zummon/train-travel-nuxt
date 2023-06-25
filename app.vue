@@ -1,5 +1,13 @@
 <script setup>
+import { ref } from "vue";
 const route = useRoute();
+const isDark = ref(false);
+useHead({
+  htmlAttrs: { class: isDark.value ? "dark" : "" },
+});
+const setDark = () => {
+  isDark.value = !isDark.value;
+};
 </script>
 
 <template>
@@ -9,7 +17,7 @@ const route = useRoute();
     <div class="max-w-screen-lg mx-auto flex flex-wrap items-center mb-8">
       <div class="flex flex-wrap space-x-4">
         <h2>{{ route.name === "index" ? "" : "Train Travel" }}</h2>
-        <button @click="() => {}">
+        <button @click="setDark">
           <!-- Moon icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"

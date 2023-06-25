@@ -4,10 +4,12 @@ const { data: blogs } = await useAsyncData("blog", () =>
 );
 const categories = [...new Set(blogs.map(({ category }) => category))];
 const title = "Blog";
+useSeoMeta({
+  title: title,
+});
 </script>
 <template>
   <div>
-    <!-- <Seo :title="title" /> -->
     <h1 class="text-center">{{ title }}</h1>
     <p class="text-center">
       <b>Categories </b>
@@ -27,11 +29,11 @@ const title = "Blog";
       :key="index"
     >
       <div class="flex-1">
-        <img
+        <!-- <img
           class="w-full object-cover h-56 sm:h-72 md:h-96"
           :src="thumbnail.src"
           :alt="thumbnail.alt"
-        />
+        /> -->
       </div>
       <div class="flex-1 sm:pl-4">
         <h2>{{ title }}</h2>
