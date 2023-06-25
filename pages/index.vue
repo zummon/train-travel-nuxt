@@ -1,9 +1,7 @@
 <script setup>
-const { data } = await useAsyncData('blog', () => {
-  return queryContent('/blog').find();
-});
-const excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
-const title = 'Train Travel';
+const { data } = await useAsyncData("blog", () => queryContent("/blog").find());
+const excerpt = "Lorem ipsum dolor sit amet consectetur adipisicing elit.";
+const title = "Train Travel";
 </script>
 <template>
   <div>
@@ -25,7 +23,7 @@ const title = 'Train Travel';
       <div
         v-for="(
           { category, date, excerpt, thumbnail, title, slug }, index
-        ) in data"
+        ) in data.slice(0, 3)"
         :key="index"
       >
         <img
@@ -38,9 +36,9 @@ const title = 'Train Travel';
           <b>Date</b>
           {{
             new Date(date).toLocaleDateString(undefined, {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })
           }}
           <b>Category</b> <a href="#">{{ category }}</a>

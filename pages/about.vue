@@ -1,7 +1,7 @@
 <script setup>
-const { data } = await useAsyncData("about", () => {
-  return queryContent("/about").findOne();
-});
+const { data } = await useAsyncData("about", () =>
+  queryContent("/about").findOne()
+);
 </script>
 <template>
   <div class="max-w-prose mx-auto">

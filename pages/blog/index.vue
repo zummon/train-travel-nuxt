@@ -1,18 +1,12 @@
-<script>
-export default {
-  async asyncData({ $content }) {
-    const blogs = await $content('blogs').fetch();
-    return {
-      categories: [...new Set(blogs.map(({ category }) => category))],
-      blogs,
-      title: 'Blog',
-    };
-  },
-};
+<script setup>
+const { data } = await useAsyncData("blog", () => queryContent("/blog").find());
+
+const categories = [...new Set(data.map(({ category }) => category))];
+const title = "Blog";
 </script>
 <template>
   <div>
-    <Seo :title="title" />
+    <!-- <Seo :title="title" /> -->
     <h1 class="text-center">{{ title }}</h1>
     <p class="text-center">
       <b>Categories </b>
@@ -20,7 +14,7 @@ export default {
         <a href="#">
           {{ category }}
         </a>
-        {{ index !== categories.length - 1 ? ', ' : '' }}
+        {{ index !== categories.length - 1 ? ", " : "" }}
       </span>
     </p>
 
@@ -28,7 +22,7 @@ export default {
       class="sm:flex items-center"
       v-for="(
         { category, date, excerpt, thumbnail, title, slug }, index
-      ) in blogs"
+      ) in data"
       :key="index"
     >
       <div class="flex-1">
@@ -43,15 +37,15 @@ export default {
         <blockquote>
           <b>Date</b>
           {{
-            new Date(date).toLocaleDateString('en', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+            new Date(date).toLocaleDateString("en", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })
           }}
           <b>Category</b> <a href="#">{{ category }}</a>
         </blockquote>
-        <NuxtContent :document="{ body: excerpt }" />
+        <p>{{ excerpt }}</p>
         <p>
           <NuxtLink :to="`/blog/${slug}`"> Read more </NuxtLink>
         </p>
