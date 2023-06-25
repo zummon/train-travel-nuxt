@@ -1,5 +1,4 @@
 ---
-category: 
 date: 2022-05-01
 excerpt: Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, mollitia laborum. Molestias.
 thumbnail:

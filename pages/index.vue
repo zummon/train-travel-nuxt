@@ -16,7 +16,7 @@ useSeoMeta({
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div
         v-for="(
-          { category, date, excerpt, thumbnail, title, slug }, index
+          { category, date, excerpt, thumbnail, title, _path }, index
         ) in blogs"
         :key="index"
       >
@@ -39,7 +39,7 @@ useSeoMeta({
         </blockquote>
         <p>{{ excerpt }}</p>
         <p>
-          <NuxtLink :to="`/blog/${slug}`"> Read more </NuxtLink>
+          <NuxtLink :to="_path"> Read more </NuxtLink>
         </p>
       </div>
     </div>
