@@ -1,7 +1,5 @@
 Need to fix darkmode
 
-### Take a look at [the website](https://fmhxnf-3000.csb.app/)
-
 - Edit your about page in `./content/about.md`
 - Add, edit and remove your contents in `./content/blog` to generate the site pages.
 
